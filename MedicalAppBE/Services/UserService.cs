@@ -46,7 +46,7 @@ namespace MedicalAppBE.Services
             var user = _context.Users.SingleOrDefault(x => x.Email == model.Email);
 
             if (user == null || !BCryptNet.Verify(model.Password, user.PasswordHash))
-                throw new AppException("Username or password is incorrect");
+                throw new AppException("Email or password is incorrect");
 
             var response = _mapper.Map<AuthenticateResponse>(user);
             response.Token = _jwtUtils.GenerateToken(user);

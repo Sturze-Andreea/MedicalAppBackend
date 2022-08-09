@@ -21,9 +21,6 @@ namespace MedicalAppBE.Entities
 
         [Column(TypeName="nvarchar(100)")]
         public string Email { get; set; }
-        
-        [Column(TypeName="nvarchar(100)")]
-        public string Username { get; set; }
 
         [Column(TypeName="nvarchar(100)")]
         [JsonIgnore]
