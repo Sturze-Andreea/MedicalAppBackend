@@ -10,9 +10,9 @@ namespace MedicalAppBE.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PatientsController: ControllerBase
+    public class PatientsController : ControllerBase
     {
-        
+
         private readonly DataContext _context;
 
         public PatientsController(DataContext context)
@@ -36,6 +36,28 @@ namespace MedicalAppBE.Controllers
             return patient;
         }
 
+        [HttpGet("fromWard/{id}")]
+        public async Task<ActionResult<Patient>> GetPatientsFromWard(int id)
+        {
+            var patients = await _context.Patients
+                .Join(
+                    _context.Hospitalizations,
+                    patient => patient.PatientId,
+                    hospitalization => hospitalization.PatientId,
+                    (patient, hospitalization) => new PatientFromWard
+                    {
+                        PatientId = patient.PatientId,
+                        HospitalizationId = hospitalization.HospitalizationId,
+                        FirstName = patient.FirstName,
+                        LastName = patient.LastName,
+                        CNP = patient.CNP,
+                        DOB = patient.DOB,
+                        WardId = hospitalization.WardId
+                    }
+                ).Where(pacientFromWard => pacientFromWard.WardId == id).ToListAsync();
+            
+            return Ok(patients);
+        }
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePatient(int id, Patient patient)
         {
