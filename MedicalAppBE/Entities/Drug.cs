@@ -14,5 +14,11 @@ namespace MedicalAppBE.Entities
 
         [Column(TypeName="nvarchar(100)")]
         public string AdministerWay { get; set; }
+
+        [Column(TypeName="nvarchar(100)")]
+        public string Frequency { get; set; }
+
+        [ForeignKey("HospitalizationId")]
+        public int HospitalizationId { get; set; }
     }
 }

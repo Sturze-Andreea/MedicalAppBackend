@@ -25,6 +25,12 @@ namespace MedicalAppBE.Controllers
             return await _context.Drugs.ToListAsync();
         }
 
+        [HttpGet("byHospitalization/{id}")]
+        public async Task<ActionResult<IEnumerable<Drug>>> GetDrugsbyHospitalization(int id)
+        {
+            return await _context.Drugs.Where((pulse) => pulse.HospitalizationId == id).OrderBy((pulse) => pulse.Name).ToListAsync();
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Drug>> GetDrug(int id)
         {

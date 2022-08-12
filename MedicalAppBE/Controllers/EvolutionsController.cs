@@ -35,6 +35,12 @@ namespace MedicalAppBE.Controllers
             return evolution;
         }
 
+        [HttpGet("byHospitalization/{id}")]
+        public async Task<ActionResult<IEnumerable<Evolution>>> GetEvolutionsByHospitalization(int id)
+        {
+            return await _context.Evolutions.Where((evolution) => evolution.HospitalizationId == id).OrderBy((evolution) => evolution.Date).ToListAsync();
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateEvolution(int id, Evolution evolution)
         {

@@ -39,14 +39,13 @@ namespace MedicalAppBE.Controllers
         [HttpGet("details/{id}")]
         public async Task<ActionResult<Details>> GetHospitalizationDetails(int id)
         {
-            var temp = await _context.Temperatures.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
-            var pulse = await _context.Pulses.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
-            var ta = await _context.TAs.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
-            var breath = await _context.Breaths.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
-            var discharge = await _context.Discharges.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
-            var diuresis = await _context.Diuresises.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
-            var fluids = await _context.IngestedFluids.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
-            var vomit = await _context.Vomitings.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).LastOrDefaultAsync();
+            var temp = await _context.Temperatures.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
+            var pulse = await _context.Pulses.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
+            var ta = await _context.TAs.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
+            var breath = await _context.Breaths.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
+            var fluids = await _context.IngestedFluids.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
+            var liquids = await _context.Liquids.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
+            var evolution = await _context.Evolutions.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
             var details = new Details();
             details.HospitalizationId = id;
             if (temp != null)
@@ -83,14 +82,6 @@ namespace MedicalAppBE.Controllers
             {
                 details.BreathNr = -1;
             }
-            if (discharge != null)
-            {
-                details.DischargeDescription = discharge.Description;
-            }
-            if (diuresis != null)
-            {
-                details.DiuresisDescription = diuresis.Description;
-            }
             if (fluids != null)
             {
                 details.Fluid = fluids.Fluid;
@@ -99,9 +90,15 @@ namespace MedicalAppBE.Controllers
             {
                 details.Fluid = -1;
             }
-            if (vomit != null)
+            if (liquids != null)
             {
-                details.VomitingDescription = vomit.Description;
+                details.VomitingDescription = liquids.Vomiting;
+                details.DiuresisDescription = liquids.Diuresis;
+                details.DischargeDescription = liquids.Discharge;
+            }
+            if (evolution != null)
+            {
+                details.EvolutionDescription = evolution.Description;
             }
 
             return details;

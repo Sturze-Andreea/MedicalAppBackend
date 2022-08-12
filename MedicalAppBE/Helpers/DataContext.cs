@@ -22,8 +22,6 @@ namespace MedicalAppBE.Helpers
         public DbSet<Anamnesis> Anamnesiss { get; set; }
         public DbSet<Breath> Breaths { get; set; }
         public DbSet<ClinicalExamination> ClinicalExaminations { get; set; }
-        public DbSet<Discharge> Discharges { get; set; }
-        public DbSet<Diuresis> Diuresises { get; set; }
         public DbSet<Drug> Drugs { get; set; }
         public DbSet<Evolution> Evolutions { get; set; }
         public DbSet<Hospitalization> Hospitalizations { get; set; }
@@ -34,7 +32,7 @@ namespace MedicalAppBE.Helpers
         public DbSet<TA> TAs { get; set; }
         public DbSet<Temperature> Temperatures { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Vomiting> Vomitings { get; set; }
+        public DbSet<Liquids> Liquids { get; set; }
         public DbSet<Ward> Wards { get; set; }
 
     }

@@ -31,5 +31,7 @@ namespace MedicalAppBE.Entities
 
         [Column(TypeName="nvarchar(100)")]
         public string VomitingDescription { get; set; }
+        [Column(TypeName="nvarchar(100)")]
+        public string EvolutionDescription { get; set; }
     }
 }

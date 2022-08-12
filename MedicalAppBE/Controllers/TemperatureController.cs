@@ -38,7 +38,7 @@ namespace MedicalAppBE.Controllers
         [HttpGet("byHospitalization/{id}")]
         public async Task<ActionResult<IEnumerable<Temperature>>> GetTemperaturesbyHospitalization(int id)
         {
-            return await _context.Temperatures.Where((temp) => temp.HospitalizationId == id).OrderByDescending((temp) => temp.Date).ToListAsync();
+            return await _context.Temperatures.Where((temp) => temp.HospitalizationId == id).OrderBy((temp) => temp.Date).ToListAsync();
         }
 
         [HttpPut("{id}")]

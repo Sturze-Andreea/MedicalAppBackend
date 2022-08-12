@@ -136,48 +136,6 @@ namespace MedicalAppBE.Migrations
                     b.ToTable("ClinicalExaminations");
                 });
 
-            modelBuilder.Entity("MedicalAppBE.Entities.Discharge", b =>
-                {
-                    b.Property<int>("DischargeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2(7)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("HospitalizationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DischargeId");
-
-                    b.ToTable("Discharges");
-                });
-
-            modelBuilder.Entity("MedicalAppBE.Entities.Diuresis", b =>
-                {
-                    b.Property<int>("DiuresisId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2(7)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("HospitalizationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DiuresisId");
-
-                    b.ToTable("Diuresises");
-                });
-
             modelBuilder.Entity("MedicalAppBE.Entities.Drug", b =>
                 {
                     b.Property<int>("DrugId")
@@ -187,6 +145,12 @@ namespace MedicalAppBE.Migrations
 
                     b.Property<string>("AdministerWay")
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Frequency")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("HospitalizationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)");
@@ -290,6 +254,33 @@ namespace MedicalAppBE.Migrations
                     b.HasKey("IngestedFluidId");
 
                     b.ToTable("IngestedFluids");
+                });
+
+            modelBuilder.Entity("MedicalAppBE.Entities.Liquids", b =>
+                {
+                    b.Property<int>("LiquidsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2(7)");
+
+                    b.Property<string>("Discharge")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Diuresis")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("HospitalizationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Vomiting")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("LiquidsId");
+
+                    b.ToTable("Liquids");
                 });
 
             modelBuilder.Entity("MedicalAppBE.Entities.Patient", b =>
@@ -422,27 +413,6 @@ namespace MedicalAppBE.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MedicalAppBE.Entities.Vomiting", b =>
-                {
-                    b.Property<int>("VomitingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2(7)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("HospitalizationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("VomitingId");
-
-                    b.ToTable("Vomitings");
                 });
 
             modelBuilder.Entity("MedicalAppBE.Entities.Ward", b =>
