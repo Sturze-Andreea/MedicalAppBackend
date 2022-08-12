@@ -35,6 +35,12 @@ namespace MedicalAppBE.Controllers
             return ta;
         }
 
+        [HttpGet("byHospitalization/{id}")]
+        public async Task<ActionResult<IEnumerable<TA>>> GetTAsbyHospitalization(int id)
+        {
+            return await _context.TAs.Where((ta) => ta.HospitalizationId == id).OrderByDescending((ta) => ta.Date).ToListAsync();
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateTA(int id, TA ta)
         {

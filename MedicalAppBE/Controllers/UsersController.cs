@@ -50,6 +50,13 @@ namespace MedicalAppBE.Controllers
             return Ok(users);
         }
 
+        [HttpGet("doctors")]
+        public IActionResult GetDoctors()
+        {
+            var users = _userService.GetAll();
+            return Ok(users);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

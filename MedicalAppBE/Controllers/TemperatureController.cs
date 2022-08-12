@@ -35,6 +35,12 @@ namespace MedicalAppBE.Controllers
             return temperature;
         }
 
+        [HttpGet("byHospitalization/{id}")]
+        public async Task<ActionResult<IEnumerable<Temperature>>> GetTemperaturesbyHospitalization(int id)
+        {
+            return await _context.Temperatures.Where((temp) => temp.HospitalizationId == id).OrderByDescending((temp) => temp.Date).ToListAsync();
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateTemperature(int id, Temperature temperature)
         {

@@ -52,17 +52,21 @@ namespace MedicalAppBE.Controllers
                         LastName = patient.LastName,
                         CNP = patient.CNP,
                         DOB = patient.DOB,
-                        WardId = hospitalization.WardId
+                        WardId = hospitalization.WardId,
+                        HospitalizationDate = hospitalization.Date,
+                        Doctor = hospitalization.Doctor,
+                        Discharged = hospitalization.Discharged,
+                        RoomNr = hospitalization.RoomNr,
+                        BedNr = hospitalization.BedNr
                     }
-                ).Where(pacientFromWard => pacientFromWard.WardId == id).ToListAsync();
+                ).Where(pacientFromWard => pacientFromWard.WardId == id && pacientFromWard.Discharged == false).ToListAsync();
             
             return Ok(patients);
         }
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePatient(int id, Patient patient)
         {
-            if (id != patient.PatientId)
-                return BadRequest();
+                patient.PatientId = id;
 
             _context.Entry(patient).State = EntityState.Modified;
 

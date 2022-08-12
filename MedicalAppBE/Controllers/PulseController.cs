@@ -35,6 +35,12 @@ namespace MedicalAppBE.Controllers
             return pulse;
         }
 
+        [HttpGet("byHospitalization/{id}")]
+        public async Task<ActionResult<IEnumerable<Pulse>>> GetPulsesbyHospitalization(int id)
+        {
+            return await _context.Pulses.Where((pulse) => pulse.HospitalizationId == id).OrderByDescending((pulse) => pulse.Date).ToListAsync();
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePulse(int id, Pulse pulse)
         {

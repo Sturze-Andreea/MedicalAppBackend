@@ -35,6 +35,16 @@ namespace MedicalAppBE.Controllers
             return anamnesis;
         }
 
+        [HttpGet("hospitalization/{id}")]
+        public async Task<ActionResult<Anamnesis>> GetAnamnesisByHospitalization(int id)
+        {
+            var anamnesis = await _context.Anamnesiss.FirstOrDefaultAsync((anamnesis)=> anamnesis.HospitalizationId == id);
+            if (anamnesis == null)
+                return NotFound();
+
+            return anamnesis;
+        }
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateAnamnesis(int id, Anamnesis anamnesis)
         {

@@ -245,6 +245,9 @@ namespace MedicalAppBE.Migrations
                     b.Property<string>("Diet")
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("Discharged")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Doctor")
                         .HasColumnType("int");
 

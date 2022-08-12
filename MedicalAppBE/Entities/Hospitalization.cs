@@ -26,7 +26,7 @@ namespace MedicalAppBE.Entities
         [Column(TypeName="int")]
         public int BedNr { get; set; }
 
-        [ForeignKey("MedicalStaffId")]
+        [ForeignKey("UserId")]
         public int Doctor { get; set; }
 
         [Column(TypeName="bit")]
@@ -49,6 +49,9 @@ namespace MedicalAppBE.Entities
 
         [Column(TypeName="nvarchar(10)")]
         public string FallingRisk { get; set; }
+
+        [Column(TypeName="bit")]
+        public bool Discharged { get; set; }
 
 
         

@@ -26,6 +26,21 @@ namespace MedicalAppBE.Entities
        
        [ForeignKey("WardId")]
         public int WardId { get; set; }
+        
+        [Column(TypeName ="date")]
+        public DateTime HospitalizationDate { get; set; }
+
+        [ForeignKey("UserId")]
+        public int Doctor { get; set; }
+
+        [Column(TypeName="bit")]
+        public bool Discharged { get; set; }
+
+        [Column(TypeName="int")]
+        public int RoomNr { get; set; }
+
+        [Column(TypeName="int")]
+        public int BedNr { get; set; }
 
 
 

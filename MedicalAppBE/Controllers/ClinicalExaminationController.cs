@@ -35,6 +35,17 @@ namespace MedicalAppBE.Controllers
             return clinicalExamination;
         }
 
+        [HttpGet("hospitalization/{id}")]
+        public async Task<ActionResult<ClinicalExamination>> GetClinicalExaminationByHospitalization(int id)
+        {
+            var clinicalExamination = await _context.ClinicalExaminations.FirstOrDefaultAsync((examination)=> examination.HospitalizationId == id);
+            if (clinicalExamination == null)
+                return NotFound();
+
+            return clinicalExamination;
+        }
+
+
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateClinicalExamination(int id, ClinicalExamination clinicalExamination)
         {
