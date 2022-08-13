@@ -13,6 +13,7 @@ namespace MedicalAppBE.Services
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         IEnumerable<User> GetAll();
+        IEnumerable<User> GetAllDoctors();
         User GetById(int id);
         void Register(RegisterRequest model);
         User Update(int id, UpdateRequest model);
@@ -34,12 +35,12 @@ namespace MedicalAppBE.Services
             _jwtUtils = jwtUtils;
             _mapper = mapper;
         }
-        // public string getRoleName(int id)
-        // {
-        //     var role = _context.Roles.Find(id);
-        //     if (role == null) throw new KeyNotFoundException("Role not found");
-        //     return role.Nume;
-        // }
+        public string getRoleName(int id)
+        {
+            var role = _context.Roles.Find(id);
+            if (role == null) throw new KeyNotFoundException("Role not found");
+            return role.Name;
+        }
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
@@ -50,13 +51,23 @@ namespace MedicalAppBE.Services
 
             var response = _mapper.Map<AuthenticateResponse>(user);
             response.Token = _jwtUtils.GenerateToken(user);
-            // response.Role = getRoleName(user.RoleId);
+            response.Role = getRoleName(user.RoleId);
             return response;
         }
 
         public IEnumerable<User> GetAll()
         {
             return _context.Users;
+        }
+
+        public IEnumerable<User> GetAllDoctors()
+        {
+            var role = _context.Roles.FirstOrDefault((role) => role.Name == "Doctor");
+            if (role == null)
+            {
+                throw new AppException("Role does not exist");
+            }
+            return _context.Users.Where((user) => user.RoleId == role.RoleId);
         }
 
         public User GetById(int id)

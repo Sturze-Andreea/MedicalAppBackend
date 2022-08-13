@@ -53,7 +53,7 @@ namespace MedicalAppBE.Controllers
         [HttpGet("doctors")]
         public IActionResult GetDoctors()
         {
-            var users = _userService.GetAll();
+            var users = _userService.GetAllDoctors();
             return Ok(users);
         }
 

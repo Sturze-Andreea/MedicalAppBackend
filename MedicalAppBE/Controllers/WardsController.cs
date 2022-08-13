@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MedicalAppBE.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
 using MedicalAppBE.Helpers;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedicalAppBE.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class WardsController : ControllerBase
