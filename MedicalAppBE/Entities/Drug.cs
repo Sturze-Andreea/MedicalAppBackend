@@ -20,5 +20,7 @@ namespace MedicalAppBE.Entities
 
         [ForeignKey("HospitalizationId")]
         public int HospitalizationId { get; set; }
+
+        public virtual Hospitalization Hospitalization { get; set; }
     }
 }

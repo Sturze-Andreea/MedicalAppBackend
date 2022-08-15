@@ -17,8 +17,6 @@ namespace MedicalAppBE.Entities
         public string DischargeDescription { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string DiuresisDescription { get; set; }
-        [Column(TypeName = "float")]
-        public float Fluid { get; set; }
         [Column(TypeName = "int")]
         public int Pulse { get; set; }
         [Column(TypeName = "int")]

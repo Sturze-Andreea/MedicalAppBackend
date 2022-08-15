@@ -45,7 +45,6 @@ namespace MedicalAppBE.Controllers
             var pulse = await _context.Pulses.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
             var ta = await _context.TAs.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
             var breath = await _context.Breaths.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
-            var fluids = await _context.IngestedFluids.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
             var liquids = await _context.Liquids.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
             var evolution = await _context.Evolutions.Where((elem) => elem.HospitalizationId == id).OrderBy((elem) => elem.Date).LastOrDefaultAsync();
             var details = new Details();
@@ -83,14 +82,6 @@ namespace MedicalAppBE.Controllers
             else
             {
                 details.BreathNr = -1;
-            }
-            if (fluids != null)
-            {
-                details.Fluid = fluids.Fluid;
-            }
-            else
-            {
-                details.Fluid = -1;
             }
             if (liquids != null)
             {

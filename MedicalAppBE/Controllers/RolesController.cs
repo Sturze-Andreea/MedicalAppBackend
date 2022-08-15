@@ -5,11 +5,9 @@ using MedicalAppBE.Helpers;
 using MedicalAppBE.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MedicalAppBE.Authorization;
 
 namespace MedicalAppBE.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RolesController : ControllerBase

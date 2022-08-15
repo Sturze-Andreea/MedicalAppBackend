@@ -35,8 +35,10 @@ namespace MedicalAppBE.Entities
 
         [Column(TypeName="nvarchar(200)")]
         public string DigestiveTract { get; set; }
-
+        
         [ForeignKey("HospitalizationId")]
         public int HospitalizationId { get; set; }
+
+        public virtual Hospitalization Hospitalization { get; set; }
     }
 }

@@ -18,14 +18,12 @@ namespace MedicalAppBE.Helpers
             options.UseSqlServer(Configuration.GetConnectionString("MedicalAppBEDatabase"));
         }
 
-        public DbSet<Administering> Administerings { get; set; }
         public DbSet<Anamnesis> Anamnesiss { get; set; }
         public DbSet<Breath> Breaths { get; set; }
         public DbSet<ClinicalExamination> ClinicalExaminations { get; set; }
         public DbSet<Drug> Drugs { get; set; }
         public DbSet<Evolution> Evolutions { get; set; }
         public DbSet<Hospitalization> Hospitalizations { get; set; }
-        public DbSet<IngestedFluid> IngestedFluids { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Pulse> Pulses { get; set; }
         public DbSet<Role> Roles { get; set; }

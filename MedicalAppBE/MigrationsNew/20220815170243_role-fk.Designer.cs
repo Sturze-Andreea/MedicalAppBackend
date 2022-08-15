@@ -4,20 +4,45 @@ using MedicalAppBE.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MedicalAppBE.Migrations
+namespace MedicalAppBE.MigrationsNew
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220815170243_role-fk")]
+    partial class rolefk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MedicalAppBE.Entities.Administering", b =>
+                {
+                    b.Property<int>("AdministeringId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Frequency")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("HospitalizationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AdministeringId");
+
+                    b.HasIndex("HospitalizationId");
+
+                    b.ToTable("Administerings");
+                });
 
             modelBuilder.Entity("MedicalAppBE.Entities.Anamnesis", b =>
                 {
@@ -233,6 +258,29 @@ namespace MedicalAppBE.Migrations
                     b.ToTable("Hospitalizations");
                 });
 
+            modelBuilder.Entity("MedicalAppBE.Entities.IngestedFluid", b =>
+                {
+                    b.Property<int>("IngestedFluidId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2(7)");
+
+                    b.Property<double>("Fluid")
+                        .HasColumnType("float");
+
+                    b.Property<int>("HospitalizationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngestedFluidId");
+
+                    b.HasIndex("HospitalizationId");
+
+                    b.ToTable("IngestedFluids");
+                });
+
             modelBuilder.Entity("MedicalAppBE.Entities.Liquids", b =>
                 {
                     b.Property<int>("LiquidsId")
@@ -420,6 +468,17 @@ namespace MedicalAppBE.Migrations
                     b.ToTable("Wards");
                 });
 
+            modelBuilder.Entity("MedicalAppBE.Entities.Administering", b =>
+                {
+                    b.HasOne("MedicalAppBE.Entities.Hospitalization", "Hospitalization")
+                        .WithMany()
+                        .HasForeignKey("HospitalizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hospitalization");
+                });
+
             modelBuilder.Entity("MedicalAppBE.Entities.Anamnesis", b =>
                 {
                     b.HasOne("MedicalAppBE.Entities.Hospitalization", "Hospitalization")
@@ -498,6 +557,17 @@ namespace MedicalAppBE.Migrations
                     b.Navigation("User");
 
                     b.Navigation("Ward");
+                });
+
+            modelBuilder.Entity("MedicalAppBE.Entities.IngestedFluid", b =>
+                {
+                    b.HasOne("MedicalAppBE.Entities.Hospitalization", "Hospitalization")
+                        .WithMany()
+                        .HasForeignKey("HospitalizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hospitalization");
                 });
 
             modelBuilder.Entity("MedicalAppBE.Entities.Liquids", b =>

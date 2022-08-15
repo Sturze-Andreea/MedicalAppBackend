@@ -13,9 +13,11 @@ namespace MedicalAppBE.Entities
 
         [ForeignKey("PatientId")]
         public int PatientId { get; set; }
+        public virtual Patient Patient { get; set; }
 
         [ForeignKey("WardId")]
         public int WardId { get; set; }
+        public virtual Ward Ward { get; set; }
 
         [Column(TypeName ="date")]
         public DateTime Date { get; set; }
@@ -28,6 +30,7 @@ namespace MedicalAppBE.Entities
 
         [ForeignKey("UserId")]
         public int Doctor { get; set; }
+        public virtual User User { get; set; }
 
         [Column(TypeName="bit")]
         public bool Immobilized { get; set; }
