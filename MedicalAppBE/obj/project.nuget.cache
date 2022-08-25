@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MsabSqty48RkaZ1XOgSbcjPPJ1cHzQElHDzJC9h2zECsthmVzc5Q+BlBqf5iD1Fk0G4yzp11hLYNRfWQxfqkiQ==",
+  "dgSpecHash": "Y+dfZmWCiw1j+0P9oMspF28Xu2jwg7EIUcarYWU3Rq5eNyLdH1wMTU5dmp4rcOwyTBhsWOlh5EG87JvPK3K2wQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Andreea\\Licenta\\MedicalAppBE\\MedicalAppBE\\MedicalAppBE.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\Andreea\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\Andreea\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\Andreea\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Andreea\\.nuget\\packages\\microsoft.aspnetcore.authentication.certificate\\5.0.8\\microsoft.aspnetcore.authentication.certificate.5.0.8.nupkg.sha512",
     "C:\\Users\\Andreea\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.6\\microsoft.aspnetcore.authentication.jwtbearer.5.0.6.nupkg.sha512",
     "C:\\Users\\Andreea\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Andreea\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

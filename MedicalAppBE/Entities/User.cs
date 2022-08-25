@@ -26,8 +26,9 @@ namespace MedicalAppBE.Entities
         [JsonIgnore]
         public string PasswordHash { get; set; }
 
-        [ForeignKey("RoleId")]
         public int RoleId { get; set; }
+        
+        [ForeignKey("RoleId")]
         public virtual Role Role { get; set; }
     }
 }

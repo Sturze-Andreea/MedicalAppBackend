@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -27,6 +28,21 @@ namespace MedicalAppBE
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(
+                CertificateAuthenticationDefaults.AuthenticationScheme)
+                .AddCertificate(options =>
+                {
+                    options.Events = new CertificateAuthenticationEvents
+                    {
+                        OnCertificateValidated = context =>
+                        {
+                            context.Success();
+
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
             services.AddDbContext<DataContext>();
 
             services.AddCors();
@@ -42,12 +58,14 @@ namespace MedicalAppBE
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
         {
+            app.UseAuthentication();
+            app.UseHttpsRedirection();
 
-            app.UseCors(options => 
+            app.UseCors(options =>
             options.WithOrigins("http://localhost:4200")
             .AllowAnyMethod()
             .AllowAnyHeader());
-            
+
             dataContext.Database.Migrate();
 
             app.UseRouting();

@@ -28,19 +28,19 @@ namespace MedicalAppBE.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("auth")]
-        public IActionResult Authenticate(AuthenticateRequest model)
-        {
-            var response = _userService.Authenticate(model);
-            return Ok(response);
-        }
-
-        [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register(RegisterRequest model)
         {
             _userService.Register(model);
             return Ok(new { message = "Registration successful" });
+        }
+
+        [AllowAnonymous]
+        [HttpPost("auth")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _userService.Authenticate(model);
+            return Ok(response);
         }
 
         [HttpGet]
