@@ -70,6 +70,9 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Evolution>> AddEvolution(Evolution evolution)
         {
+            if (_context.Evolutions.Any(x => x.Date <= new System.DateTime()))
+                throw new AppException("Cannot enter value for future days");
+
             _context.Evolutions.Add(evolution);
 
             await _context.SaveChangesAsync();

@@ -159,6 +159,9 @@ namespace MedicalAppBE.Controllers
             if (id != hospitalization.HospitalizationId)
                 return BadRequest();
 
+            if (_context.Hospitalizations.Any(x => x.PatientId == hospitalization.PatientId && x.Discharged == false && x.HospitalizationId != id))
+                throw new AppException("Patient is already hospitalized");
+
             _context.Entry(hospitalization).State = EntityState.Modified;
 
             try
@@ -180,6 +183,9 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Hospitalization>> AddHospitalization(Hospitalization hospitalization)
         {
+            if (_context.Hospitalizations.Any(x => x.PatientId == hospitalization.PatientId && x.Discharged == false))
+                throw new AppException("Patient is already hospitalized");
+
             _context.Hospitalizations.Add(hospitalization);
 
             await _context.SaveChangesAsync();

@@ -70,6 +70,9 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Breath>> AddBreath(Breath breath)
         {
+            if (_context.Breaths.Any(x => x.Date <= new System.DateTime()))
+                throw new AppException("Cannot enter value for future days");
+
             _context.Breaths.Add(breath);
 
             await _context.SaveChangesAsync();

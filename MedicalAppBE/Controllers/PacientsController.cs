@@ -68,7 +68,10 @@ namespace MedicalAppBE.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePatient(int id, Patient patient)
         {
-                patient.PatientId = id;
+            if (_context.Patients.Any(x => x.CNP == patient.CNP && x.PatientId != id))
+                throw new AppException("Patient with CNP '" + patient.CNP + "' already exists");
+
+            patient.PatientId = id;
 
             _context.Entry(patient).State = EntityState.Modified;
 
@@ -91,6 +94,9 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Patient>> AddPatient(Patient patient)
         {
+            if (_context.Patients.Any(x => x.CNP == patient.CNP))
+                throw new AppException("Patient with CNP '" + patient.CNP + "' already exists");
+
             _context.Patients.Add(patient);
 
             await _context.SaveChangesAsync();

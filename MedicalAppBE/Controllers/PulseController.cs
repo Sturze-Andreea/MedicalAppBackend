@@ -70,6 +70,9 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Pulse>> AddPulse(Pulse pulse)
         {
+            if (_context.Pulses.Any(x => x.Date <= new System.DateTime()))
+                throw new AppException("Cannot enter value for future days");
+
             _context.Pulses.Add(pulse);
 
             await _context.SaveChangesAsync();

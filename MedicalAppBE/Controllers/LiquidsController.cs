@@ -1,4 +1,4 @@
- using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MedicalAppBE.Helpers;
@@ -13,10 +13,10 @@ namespace MedicalAppBE.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class LiquidsController: ControllerBase
+    public class LiquidsController : ControllerBase
     {
-       
-private readonly DataContext _context;
+
+        private readonly DataContext _context;
 
         public LiquidsController(DataContext context)
         {
@@ -72,6 +72,9 @@ private readonly DataContext _context;
         [HttpPost]
         public async Task<ActionResult<Liquids>> AddLiquids(Liquids liquids)
         {
+            if (_context.Liquids.Any(x => x.Date <= new System.DateTime()))
+                throw new AppException("Cannot enter value for future days");
+
             _context.Liquids.Add(liquids);
 
             await _context.SaveChangesAsync();

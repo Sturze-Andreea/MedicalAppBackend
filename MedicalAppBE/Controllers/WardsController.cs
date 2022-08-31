@@ -43,6 +43,9 @@ namespace MedicalAppBE.Controllers
             if (id != ward.WardId)
                 return BadRequest();
 
+            if (_context.Wards.Any(x => x.Name == ward.Name && x.WardId != id))
+                throw new AppException("Ward '" + ward.Name + "' already exists");
+
             _context.Entry(ward).State = EntityState.Modified;
 
             try
@@ -63,7 +66,9 @@ namespace MedicalAppBE.Controllers
 
         [HttpPost]
         public async Task<ActionResult<Ward>> AddWard(Ward ward)
-        {
+        {   if (_context.Wards.Any(x => x.Name == ward.Name))
+                throw new AppException("Ward '" + ward.Name + "' already exists");
+
             _context.Wards.Add(ward);
 
             await _context.SaveChangesAsync();

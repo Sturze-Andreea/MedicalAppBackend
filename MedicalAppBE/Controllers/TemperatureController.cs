@@ -70,6 +70,9 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Temperature>> AddTemperature(Temperature temperature)
         {
+            if (_context.Temperatures.Any(x => x.Date <= new System.DateTime()))
+                throw new AppException("Cannot enter value for future days");
+
             _context.Temperatures.Add(temperature);
 
             await _context.SaveChangesAsync();
