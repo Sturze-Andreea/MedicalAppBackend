@@ -6,6 +6,7 @@ using MedicalAppBE.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MedicalAppBE.Authorization;
+using System;
 
 namespace MedicalAppBE.Controllers
 {
@@ -70,8 +71,10 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Evolution>> AddEvolution(Evolution evolution)
         {
-            if (_context.Evolutions.Any(x => x.Date <= new System.DateTime()))
+            if (evolution.Date > DateTime.Now)
                 throw new AppException("Cannot enter value for future days");
+            if (_context.Evolutions.Any(x => x.Date == evolution.Date && x.HospitalizationId == evolution.HospitalizationId))
+                throw new AppException("A value for the given day already exists");
 
             _context.Evolutions.Add(evolution);
 

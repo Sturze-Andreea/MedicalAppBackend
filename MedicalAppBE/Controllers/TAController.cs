@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Threading.Tasks;
 using MedicalAppBE.Helpers;
 using MedicalAppBE.Entities;
@@ -70,9 +71,12 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<TA>> AddTA(TA ta)
         {
-            if (_context.TAs.Any(x => x.Date <= new System.DateTime()))
+            if (ta.Date > DateTime.Now)
                 throw new AppException("Cannot enter value for future days");
-
+            if (_context.TAs.Any(x => x.Date == ta.Date && x.HospitalizationId == ta.HospitalizationId))
+                throw new AppException("A value for the given day already exists");
+            if (ta.Min > 350 || ta.Min < 30 || ta.Max > 350 || ta.Max < 30)
+                throw new AppException("Wrong value entered");
             _context.TAs.Add(ta);
 
             await _context.SaveChangesAsync();

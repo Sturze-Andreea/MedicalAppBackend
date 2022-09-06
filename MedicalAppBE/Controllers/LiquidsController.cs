@@ -6,6 +6,7 @@ using MedicalAppBE.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MedicalAppBE.Authorization;
+using System;
 
 namespace MedicalAppBE.Controllers
 {
@@ -72,8 +73,10 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Liquids>> AddLiquids(Liquids liquids)
         {
-            if (_context.Liquids.Any(x => x.Date <= new System.DateTime()))
+            if (liquids.Date > DateTime.Now)
                 throw new AppException("Cannot enter value for future days");
+            if (_context.Liquids.Any(x => x.Date == liquids.Date && x.HospitalizationId == liquids.HospitalizationId))
+                throw new AppException("A value for the given day already exists");
 
             _context.Liquids.Add(liquids);
 

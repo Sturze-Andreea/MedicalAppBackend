@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Threading.Tasks;
 using MedicalAppBE.Helpers;
 using MedicalAppBE.Entities;
@@ -70,9 +71,13 @@ namespace MedicalAppBE.Controllers
         [HttpPost]
         public async Task<ActionResult<Temperature>> AddTemperature(Temperature temperature)
         {
-            if (_context.Temperatures.Any(x => x.Date <= new System.DateTime()))
+            if (temperature.Date > DateTime.Now)
                 throw new AppException("Cannot enter value for future days");
-
+            if (_context.Temperatures.Any(x => x.Date == temperature.Date && x.HospitalizationId == temperature.HospitalizationId))
+                throw new AppException("A value for the given day already exists");
+            if (temperature.Temp > 42 || temperature.Temp < 35)
+                throw new AppException("Wrong value entered");
+                
             _context.Temperatures.Add(temperature);
 
             await _context.SaveChangesAsync();
